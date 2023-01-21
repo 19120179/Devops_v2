@@ -8,7 +8,15 @@ node {
 
 	stage('Build') 
 	{
-		app = docker.build("19120064/devops_demo")
+		app = docker.build("19120179/devops_demo")
+	}
+
+	stage("test"){
+		app.inside {
+            sh "npm --prefix ./project/ run test"
+            sh "echo 'running addional test'"
+            sh "echo 'passed'"
+		}
 	}
 
 	stage('Push') 
